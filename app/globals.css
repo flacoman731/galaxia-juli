@@ -1,49 +1,759 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100%;
+  background: #020817;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.galaxy {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 75% 40%, #102e59 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 70%, #102448 0%, transparent 45%),
+    linear-gradient(135deg, #020817, #07172e 55%, #020817);
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 70% 20%, #b9dcff, transparent),
+    radial-gradient(1px 1px at 40% 70%, white, transparent),
+    radial-gradient(2px 2px at 85% 65%, white, transparent),
+    radial-gradient(1px 1px at 15% 85%, #9bcaff, transparent),
+    radial-gradient(2px 2px at 55% 45%, white, transparent);
+  background-size: 250px 250px;
+  animation: starMove 35s linear infinite;
+}
+
+@keyframes starMove {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-250px);
+  }
+}
+
+.welcome {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.subtitle {
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: #8fcaff;
+  margin-bottom: 25px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.welcome h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(55px, 9vw, 105px);
+  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: -2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.welcome h1 span {
+  color: #8fcaff;
+  font-style: italic;
+}
+
+.welcome p {
+  max-width: 430px;
+  color: #b7c9df;
+  font-size: 14px;
+  line-height: 2;
+  margin-top: 25px;
+}
+
+.welcome button {
+  margin-top: 38px;
+  padding: 16px 30px;
+  border: 1px solid #70baff;
+  border-radius: 40px;
+  color: white;
+  background: rgba(37, 106, 174, 0.2);
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.welcome button:hover {
+  background: #2565a0;
+  box-shadow: 0 0 30px #2565a0;
+}
+
+.planet {
+  position: absolute;
+  z-index: 1;
+  width: 220px;
+  height: 220px;
+  top: 13%;
+  right: 12%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, #a7d9ff, #3676b2 35%, #10264c 75%);
+  box-shadow:
+    inset -25px -15px 40px #020817,
+    0 0 60px rgba(63, 151, 255, 0.35);
+  opacity: 0.8;
+}
+
+.universe {
+  position: relative;
+  z-index: 2;
+  min-height: 65vh;
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(transparent, #06152b);
+}
+
+.universe h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 45px;
+  color: #b9ddff;
+}
+
+.universe p {
+  margin-top: 15px;
+  color: #a9bdd5;
+}
+
+@media (max-width: 600px) {
+  .planet {
+    width: 110px;
+    height: 110px;
+    top: 10%;
+    right: 5%;
+    opacity: 0.5;
+  }
+
+  .subtitle {
+    letter-spacing: 3px;
+  }
+}
+
+
+.planet-grid {
+  width: min(1100px, 95%);
+  margin: 75px auto 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 35px;
+  align-items: center;
+}
+
+.planet-card {
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.4s ease;
+}
+
+.planet-card:hover {
+  transform: translateY(-12px) scale(1.05);
+}
+
+.planet-sphere {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow:
+    inset -15px -15px 30px rgba(0,0,0,0.5),
+    0 0 35px rgba(100,160,255,0.25);
+  animation: floating 5s ease-in-out infinite;
+}
+
+.planet-two .planet-sphere {
+  animation-delay: 0.7s;
+}
+
+.planet-three .planet-sphere {
+  animation-delay: 1.2s;
+}
+
+.planet-four .planet-sphere {
+  animation-delay: 0.4s;
+}
+
+.planet-five .planet-sphere {
+  animation-delay: 1.5s;
+  box-shadow: 0 0 45px rgba(160,180,255,0.5);
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
+}
+
+.planet-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 25px;
+  color: #d8eaff;
+}
+
+.planet-description {
+  font-size: 11px;
+  color: #91aac8;
+  letter-spacing: 1px;
+}
+
+.universe-intro {
+  color: #a9bdd5;
+  margin-top: 18px;
+  line-height: 1.8;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 5, 18, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.message-modal {
+  width: min(520px, 100%);
+  padding: 55px 35px;
+  border: 1px solid rgba(130,180,255,0.35);
+  border-radius: 25px;
+  background:
+    radial-gradient(circle at top, #193d68, transparent 65%),
+    #07152c;
+  text-align: center;
+  box-shadow: 0 0 70px rgba(50,120,220,0.2);
+}
+
+.modal-star {
+  display: block;
+  font-size: 40px;
+  color: #b9dcff;
+  margin-bottom: 20px;
+}
+
+.message-modal h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  color: #c6e3ff;
+  margin: 20px 0;
+}
+
+.message-modal p {
+  color: #c2d1e5;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.message-modal button {
+  margin-top: 30px;
+  padding: 14px 25px;
+  border: 1px solid #70baff;
+  border-radius: 30px;
+  background: rgba(37,106,174,0.2);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.message-modal button:hover {
+  background: #2565a0;
+}
+
+@media (max-width: 750px) {
+  .planet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 45px 15px;
+  }
+
+  .planet-sphere {
+    width: 100px;
+    height: 100px;
+  }
+
+  .universe h2 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 380px) {
+  .planet-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CAPA EXTRA DE ESTRELLAS */
+
+.stars::before,
+.stars::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 15% 20%, #fff, transparent),
+    radial-gradient(2px 2px at 45% 65%, #a8d8ff, transparent),
+    radial-gradient(1px 1px at 80% 30%, #fff, transparent),
+    radial-gradient(2px 2px at 65% 85%, #b9dfff, transparent),
+    radial-gradient(1px 1px at 30% 90%, #fff, transparent);
+  background-size: 350px 350px;
+  animation: starsTwinkle 5s ease-in-out infinite alternate;
+}
+
+.stars::after {
+  background-size: 500px 500px;
+  animation-delay: 2s;
+  opacity: 0.5;
+}
+
+@keyframes starsTwinkle {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* NEBULOSA ESPACIAL */
+
+.galaxy::before {
+  content: "";
+  position: absolute;
+  width: 700px;
+  height: 500px;
+  top: 15%;
+  left: -250px;
+  background: radial-gradient(
+    ellipse,
+    rgba(35, 103, 190, 0.16),
+    rgba(67, 47, 145, 0.08) 45%,
+    transparent 70%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+}
+
+/* ANILLOS PLANETARIOS */
+
+.planet-sphere::after {
+  content: "";
+  position: absolute;
+  width: 155%;
+  height: 40%;
+  left: -27%;
+  top: 30%;
+  border: 2px solid rgba(190, 220, 255, 0.55);
+  border-radius: 50%;
+  transform: rotate(-25deg);
+  box-shadow: 0 0 12px rgba(120, 180, 255, 0.25);
+  pointer-events: none;
+}
+
+.planet-two .planet-sphere::after {
+  transform: rotate(25deg);
+  border-color: rgba(218, 174, 255, 0.65);
+}
+
+.planet-four .planet-sphere::after {
+  border-color: rgba(255, 218, 165, 0.65);
+}
+
+/* CUENTA REGRESIVA */
+
+.countdown-section {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 100px 20px 130px;
+  background:
+    radial-gradient(ellipse at center, rgba(26, 75, 133, 0.25), transparent 70%);
+}
+
+.countdown-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 6vw, 58px);
+  color: #d5eaff;
+  margin: 20px 0;
+}
+
+.countdown-description {
+  color: #a9bdd5;
+  font-size: 14px;
+  line-height: 2;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.countdown-grid {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 45px auto;
+  flex-wrap: wrap;
+}
+
+.countdown-box {
+  width: 105px;
+  padding: 22px 10px;
+  border: 1px solid rgba(128, 184, 255, 0.3);
+  border-radius: 16px;
+  background: rgba(18, 49, 88, 0.45);
+  box-shadow: 0 0 25px rgba(55, 130, 220, 0.1);
+}
+
+.countdown-box strong {
+  display: block;
+  font-size: 35px;
+  font-family: 'Cormorant Garamond', serif;
+  color: #d4eaff;
+}
+
+.countdown-box span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #8dbbe9;
+}
+
+.countdown-message {
+  color: #c7ddf5;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  font-style: italic;
+  margin-top: 35px;
+}
+
+@media (max-width: 450px) {
+  .countdown-box {
+    width: 75px;
+    padding: 16px 5px;
+  }
+
+  .countdown-box strong {
+    font-size: 28px;
+  }
+
+  .countdown-grid {
+    gap: 10px;
+  }
+}
+
+
+
+/* CONSTELACIÓN JULI */
+
+.juli-constellation {
+  position: relative;
+  z-index: 3;
+  padding: 110px 20px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(28, 83, 150, 0.18),
+      transparent 70%
+    );
+}
+
+.juli-constellation h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 6vw, 58px);
+  color: #d5eaff;
+  margin: 20px 0;
+}
+
+.constellation-description {
+  color: #a9bdd5;
+  font-size: 13px;
+  line-height: 2;
+  max-width: 460px;
+  margin: auto;
+}
+
+.constellation-space {
+  width: min(750px, 95%);
+  aspect-ratio: 100 / 70;
+  position: relative;
+  margin: 65px auto 25px;
+  overflow: hidden;
+  border-radius: 25px;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(34, 94, 165, 0.13), transparent 65%);
+}
+
+.constellation-nebula {
+  position: absolute;
+  width: 65%;
+  height: 70%;
+  left: 18%;
+  top: 15%;
+  background: radial-gradient(
+    ellipse,
+    rgba(45, 119, 211, 0.18),
+    rgba(74, 65, 166, 0.08),
+    transparent 70%
+  );
+  filter: blur(30px);
+}
+
+.constellation-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.juli-star {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #425d82;
+  font-size: 29px;
+  z-index: 2;
+  transition: 0.4s;
+}
+
+.juli-star:disabled {
+  cursor: default;
+}
+
+.star-available {
+  color: white;
+  cursor: pointer;
+  text-shadow:
+    0 0 10px white,
+    0 0 25px #4db7ff,
+    0 0 45px #287cff;
+  animation: juliPulse 1.5s infinite alternate;
+}
+
+.star-discovered {
+  color: white;
+  text-shadow:
+    0 0 12px white,
+    0 0 30px #4db7ff;
+}
+
+@keyframes juliPulse {
+  from {
+    filter: brightness(0.7);
+  }
+  to {
+    filter: brightness(1.8);
+  }
+}
+
+.constellation-name {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #c2e5ff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 5vw, 42px);
+  letter-spacing: 12px;
+  text-shadow: 0 0 25px #43aaff;
+}
+
+.constellation-counter {
+  color: #82bde9;
+  font-size: 11px;
+  letter-spacing: 4px;
+  margin: 25px 0;
+}
+
+.constellation-message {
+  min-height: 130px;
+  max-width: 520px;
+  margin: 25px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.constellation-message span,
+.final-glow {
+  color: #b9ddff;
+  font-size: 30px;
+  text-shadow: 0 0 20px #55aaff;
+}
+
+.constellation-message p {
+  color: #d2e5f8;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  font-style: italic;
+}
+
+.constellation-message small {
+  color: #789bbd;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.constellation-finale {
+  max-width: 520px;
+  margin: 25px auto;
+  padding: 35px 25px;
+  border: 1px solid rgba(117, 187, 255, 0.3);
+  border-radius: 22px;
+  background: rgba(11, 36, 70, 0.65);
+  box-shadow: 0 0 45px rgba(50, 130, 220, 0.15);
+}
+
+.constellation-finale h3 {
+  font-family: 'Cormorant Garamond', serif;
+  color: #d5eaff;
+  font-size: 32px;
+  margin: 15px 0;
+}
+
+.constellation-finale p {
+  color: #b7cce3;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.constellation-finale button {
+  margin-top: 25px;
+  padding: 14px 25px;
+  border: 1px solid #70baff;
+  border-radius: 30px;
+  background: rgba(37, 106, 174, 0.2);
+  color: white;
+  cursor: pointer;
+}
+
+.constellation-finale button:hover {
+  background: #2565a0;
+}
+
+@media (max-width: 600px) {
+  .juli-constellation {
+    padding: 75px 15px;
+  }
+
+  .juli-star {
+    width: 32px;
+    height: 32px;
+    font-size: 23px;
+  }
+
+  .constellation-name {
+    letter-spacing: 7px;
+  }
+}
+
+
+/* AJUSTES GENERALES PARA CELULARES */
+
+@media (max-width: 600px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .welcome {
+    min-height: 100svh;
+    padding: 25px 18px;
+  }
+
+  .welcome h1 {
+    font-size: clamp(52px, 13vw, 75px);
+  }
+
+  .welcome p {
+    font-size: 13px;
+    max-width: 320px;
+  }
+
+  .planet {
+    width: 95px;
+    height: 95px;
+    top: 7%;
+    right: 4%;
+  }
+
+  .universe {
+    padding: 75px 15px;
+  }
+
+  .planet-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 12px;
+  }
+
+  .planet-sphere {
+    width: 95px;
+    height: 95px;
+  }
+
+  .planet-name {
+    font-size: 22px;
+  }
+
+  .message-modal {
+    padding: 35px 22px;
+  }
+
+  .countdown-section {
+    padding: 75px 15px;
+  }
+
+  .juli-constellation {
+    padding: 75px 12px;
+  }
+
+  .constellation-space {
+    width: 100%;
+  }
+
+  .constellation-finale {
+    padding: 25px 18px;
   }
 }
